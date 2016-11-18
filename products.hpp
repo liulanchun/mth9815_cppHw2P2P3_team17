@@ -235,9 +235,6 @@ ostream& operator<<(ostream &output, const Bond &bond)
 
 
 
-
-
-
 IRSwap::IRSwap(string _productId, DayCountConvention _fixedLegDayCountConvention, DayCountConvention _floatingLegDayCountConvention, PaymentFrequency _fixedLegPaymentFrequency, FloatingIndex _floatingIndex, FloatingIndexTenor _floatingIndexTenor, date _effectiveDate, date _terminationDate, Currency _currency, int _termYears, SwapType _swapType, SwapLegType _swapLegType)  : Product(_productId, IRSWAP)
 {
   fixedLegDayCountConvention =_fixedLegDayCountConvention;
@@ -417,7 +414,6 @@ public:
   // Return the maturity date of the future
   date GetMaturityDate() const;
 
-
   // Return the settle price
   float GetSettlePrice() const;
 
@@ -430,8 +426,6 @@ private:
   date maturityDate; // maturity date variable
   float settleprice; // settle price
 };
-
-
 
 
 /*Modeling EuroDollar future and Bond future*/
@@ -455,39 +449,45 @@ Future::Future(string _productId, FutureType _futureType, date _maturityDate, fl
 	settleprice = _settleprice;
 }
 
+//Future default ctor
 Future::Future() : Product(0, FUTURE)
 {
 }
 
+//return the type of the contract
 FutureType Future::GetFutureType() const
 {
   return futureType;
 }
 
+//return the maturity date of the contract
 date Future::GetMaturityDate() const
 {
   return maturityDate;
 }
 
+//return the settle price of the contract
 float Future::GetSettlePrice() const
 {
   return settleprice;
 }
 
+//overloaded operator << to write info about future
 ostream& operator<<(ostream &output, const Future &future)
 {
   output << future.productId << " " << future.futureType << " " << future.GetMaturityDate() << " at " << future.GetSettlePrice() ;
   return output;
 }
 
+// EuroDollarFuture ctor
 EuroDollarFuture::EuroDollarFuture(string _productId, date _maturityDate, float _settleprice) : Future(_productId, EURODOLLARFTR,_maturityDate,_settleprice)
 {
 }
 
+// BondFuture ctor
 BondFuture::BondFuture(string _productId, date _maturityDate, float _settleprice) : Future(_productId, BONDFTR,_maturityDate,_settleprice)
 {
 }
-
 
 
 #endif
